@@ -1,0 +1,139 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model About {
+  id                Int      @id @default(autoincrement())
+  nama              String?
+  seorangApa        String?  // Web Development, UI UX
+  email             String?
+  alamat            String?
+  jabatan           String?  // FULL STACK
+  telepon           String?
+  whatsapp          String?
+  fotoFormal        String?  // Hero Section
+  fotoNonFormal     String?  // About Me
+  deskripsiSingkat  String?  // Home description
+  deskripsi         String   // Rich text description
+  githubUrl         String?
+  linkedinUrl       String?
+  facebookUrl       String?
+  instagramUrl      String?
+  stats             String?  // JSON string: {"projects": 98, "experience": 3, "courses": 10, "clients": 15}
+  cvUrl             String?  // CV/Resume PDF
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model Education {
+  id          Int      @id @default(autoincrement())
+  institution String
+  degree      String
+  field       String?
+  startDate   String
+  endDate     String?
+  description String?
+  grade       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Skill {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  icon      String?
+  level     Int      @default(0) // 0-100
+  category  String?  // Frontend, Backend, etc
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Project {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  image       String?
+  tags        String   // JSON string: ["Vue.js", "Nuxt.js"]
+  demoUrl     String?
+  githubUrl   String?
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Experience {
+  id          Int      @id @default(autoincrement())
+  company     String
+  position    String
+  startDate   String
+  endDate     String?
+  description String
+  location    String?
+  current     Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Certificate {
+  id          Int      @id @default(autoincrement())
+  title       String
+  issuer      String
+  issueDate   String
+  expiryDate  String?
+  credential  String?
+  url         String?
+  image       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Blog {
+  id          Int      @id @default(autoincrement())
+  title       String
+  slug        String   @unique
+  content     String
+  excerpt     String?
+  image       String?
+  published   Boolean  @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Contact {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Task {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  completed   Boolean  @default(false)
+  priority    String   @default("medium") // low, medium, high
+  dueDate     DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
